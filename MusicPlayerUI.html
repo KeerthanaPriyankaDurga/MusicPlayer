@@ -1,0 +1,2577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>తెలుగు మెలోడీ | Telugu Melody</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500&family=Noto+Sans+Telugu:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #ff3e6c;
+            --primary-dark: #e2335f;
+            --secondary: #7c3aed;
+            --dark: #121212;
+            --dark-light: #1e1e1e;
+            --dark-lighter: #2a2a2a;
+            --text: #ffffff;
+            --text-secondary: #b3b3b3;
+            --card-bg: #181818;
+            --player-height: 100px;
+            --gold: #ffd700;
+            --premium-gradient: linear-gradient(135deg, #ffd700, #ff9500);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--dark);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        .telugu-font {
+            font-family: 'Noto Sans Telugu', sans-serif;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+            padding-bottom: var(--player-height);
+        }
+
+        /* Login Modal */
+        .login-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 1;
+            transition: opacity 0.5s;
+        }
+
+        .login-modal.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .login-box {
+            background: var(--dark-light);
+            padding: 40px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .login-logo {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+
+        .login-title {
+            font-size: 28px;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .login-subtitle {
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+        }
+
+        .login-options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .login-btn {
+            padding: 15px;
+            border-radius: 30px;
+            border: none;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .guest-btn {
+            background: var(--primary);
+            color: white;
+        }
+
+        .premium-btn {
+            background: var(--premium-gradient);
+            color: black;
+        }
+
+        .google-btn {
+            background: white;
+            color: #333;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .demo-accounts {
+            margin-top: 20px;
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background-color: var(--dark-light);
+            padding: 20px 0;
+            position: fixed;
+            height: calc(100vh - var(--player-height));
+            overflow-y: auto;
+            z-index: 100;
+            transition: transform 0.3s ease;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 101;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            padding: 0 20px 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo i {
+            font-size: 28px;
+            color: var(--primary);
+            margin-right: 10px;
+        }
+
+        .logo h1 {
+            font-size: 22px;
+            font-weight: 700;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .logo span {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-left: 5px;
+        }
+
+        .user-profile-sidebar {
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            margin-right: 15px;
+            cursor: pointer;
+        }
+
+        .user-info h3 {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .user-info p {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .premium-badge {
+            background: var(--premium-gradient);
+            color: black;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            display: inline-block;
+            margin-top: 5px;
+        }
+
+        .nav-menu {
+            padding: 0 20px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            margin-bottom: 5px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-item i {
+            margin-right: 15px;
+            font-size: 20px;
+            color: var(--text-secondary);
+        }
+
+        .nav-item.active i, .nav-item:hover i {
+            color: var(--primary);
+        }
+
+        .nav-item span {
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .playlists {
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .playlists h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .playlist-item {
+            padding: 10px 0;
+            cursor: pointer;
+            color: var(--text-secondary);
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .playlist-item:hover {
+            color: var(--primary);
+        }
+
+        .playlist-item i {
+            margin-right: 10px;
+        }
+
+        .playlist-count {
+            font-size: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2px 8px;
+            border-radius: 10px;
+        }
+
+        .create-playlist-btn {
+            margin-top: 15px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px dashed rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .create-playlist-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 250px;
+            padding: 30px;
+            background: linear-gradient(to bottom, rgba(30, 30, 30, 0.8), var(--dark));
+            transition: margin-left 0.3s ease;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            padding: 10px 20px;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .search-bar i {
+            color: var(--text-secondary);
+            margin-right: 10px;
+        }
+
+        .search-bar input {
+            background: transparent;
+            border: none;
+            outline: none;
+            color: var(--text);
+            font-size: 16px;
+            width: 100%;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            padding: 8px 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .user-profile:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .theme-toggle, .language-toggle {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            color: var(--text);
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover, .language-toggle:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(15deg);
+        }
+
+        /* Hero Section - DARK THEME */
+        .hero {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .hero-content {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .hero-content h2 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .hero-content p {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 20px;
+        }
+
+        .play-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .play-btn:hover {
+            transform: scale(1.05);
+            background-color: var(--primary-dark);
+        }
+
+        .play-btn i {
+            margin-right: 10px;
+        }
+
+        .hero-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Section Styles */
+        .section-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .see-all {
+            color: var(--text-secondary);
+            font-size: 14px;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .see-all:hover {
+            color: var(--primary);
+        }
+
+        /* Cards */
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 15px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .card:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .card-img {
+            width: 100%;
+            height: 150px;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .play-overlay {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: var(--primary);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover .play-overlay {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .card-subtitle {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        /* Card Like Button */
+        .card-like-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            border: none;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+        }
+
+        .card-like-btn:hover {
+            background: rgba(255, 62, 108, 0.8);
+            transform: scale(1.1);
+        }
+
+        .card-like-btn.liked {
+            color: var(--primary);
+            background: rgba(255, 62, 108, 0.9);
+        }
+
+        /* Music Player */
+        .music-player {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: var(--player-height);
+            background: rgba(30, 30, 30, 0.95);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            padding: 0 30px;
+            z-index: 200;
+        }
+
+        .player-album {
+            display: flex;
+            align-items: center;
+            width: 250px;
+        }
+
+        .player-album-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-right: 15px;
+        }
+
+        .player-album-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .player-song-info h4 {
+            font-size: 16px;
+            margin-bottom: 5px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 150px;
+        }
+
+        .player-song-info p {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .player-controls {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .player-buttons {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            margin-bottom: 10px;
+        }
+
+        .player-btn {
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .player-btn:hover {
+            color: var(--primary);
+        }
+
+        .play-pause-btn {
+            background: var(--primary);
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .play-pause-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .player-progress {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .progress-time {
+            font-size: 12px;
+            color: var(--text-secondary);
+            min-width: 40px;
+        }
+
+        .progress-bar {
+            flex: 1;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            background: var(--primary);
+            border-radius: 2px;
+            width: 30%;
+            transition: width 0.1s linear;
+        }
+
+        .player-extra {
+            width: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 15px;
+        }
+
+        .volume-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .volume-bar {
+            width: 80px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .volume-fill {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            background: var(--text);
+            border-radius: 2px;
+            width: 70%;
+        }
+
+        /* Now Playing Modal */
+        .now-playing-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 300;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s;
+        }
+
+        .now-playing-modal.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .now-playing-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 50px;
+            width: 90%;
+            max-width: 1200px;
+            flex-wrap: wrap;
+        }
+
+        .now-playing-album {
+            width: 400px;
+            height: 400px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .now-playing-album img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .now-playing-info {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .now-playing-info h1 {
+            font-size: 42px;
+            margin-bottom: 10px;
+            color: white;
+        }
+
+        .now-playing-info h2 {
+            font-size: 24px;
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+        }
+
+        .now-playing-lyrics {
+            margin-top: 30px;
+            max-height: 300px;
+            overflow-y: auto;
+            padding-right: 20px;
+        }
+
+        .lyrics-line {
+            font-size: 18px;
+            margin-bottom: 15px;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            transition: color 0.3s ease;
+        }
+
+        .lyrics-line.active {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .close-now-playing {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+        }
+
+        /* Queue Panel */
+        .queue-panel {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 350px;
+            height: 100%;
+            background: var(--dark-light);
+            z-index: 250;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .queue-panel.active {
+            transform: translateX(0);
+        }
+
+        .queue-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .queue-header h3 {
+            font-size: 20px;
+        }
+
+        .queue-close {
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .queue-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .queue-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .queue-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .queue-item.active {
+            background: rgba(255, 62, 108, 0.1);
+        }
+
+        .queue-item-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-right: 15px;
+        }
+
+        .queue-item-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .queue-item-info {
+            flex: 1;
+        }
+
+        .queue-item-info h4 {
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .queue-item-info p {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .queue-item-duration {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 120px;
+            right: 30px;
+            background: var(--primary);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            z-index: 400;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            
+            .sidebar.active {
+                transform: translateX(0);
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .mobile-menu-btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            .player-album, .player-extra {
+                width: 150px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .hero-content {
+                min-width: 100%;
+            }
+            
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .search-bar {
+                max-width: 100%;
+            }
+            
+            .cards-container {
+                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            }
+            
+            .player-album {
+                display: none;
+            }
+            
+            .player-extra {
+                display: none;
+            }
+            
+            .music-player {
+                padding: 0 15px;
+            }
+            
+            .now-playing-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .now-playing-album {
+                width: 300px;
+                height: 300px;
+            }
+        }
+
+        /* Animations */
+        @keyframes rotateAlbum {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .playing .player-album-img img {
+            animation: rotateAlbum 20s linear infinite;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-dark);
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Modal -->
+    <div class="login-modal" id="loginModal">
+        <div class="login-box">
+            <div class="login-logo">
+                <i class="fas fa-music"></i>
+            </div>
+            <h1 class="login-title">తెలుగు మెలోడీ</h1>
+            <p class="login-subtitle">Experience the soul of Telugu music</p>
+            
+            <div class="login-options">
+                <button class="login-btn guest-btn" id="guestLogin">
+                    <i class="fas fa-user"></i> Continue as Guest
+                </button>
+                <button class="login-btn premium-btn" id="premiumLogin">
+                    <i class="fas fa-crown"></i> Try Premium Free
+                </button>
+                <button class="login-btn google-btn" id="googleLogin">
+                    <i class="fab fa-google"></i> Sign in with Google
+                </button>
+            </div>
+            
+            <div class="demo-accounts">
+                <p>Demo accounts: keerthana@demo.com / password</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Menu Button -->
+    <button class="mobile-menu-btn" id="mobileMenuBtn">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="logo">
+            <i class="fas fa-music"></i>
+            <h1>తెలుగు మెలోడీ <span>| Premium</span></h1>
+        </div>
+        
+        <div class="user-profile-sidebar">
+            <div class="user-avatar" id="userAvatar">
+                G
+            </div>
+            <div class="user-info">
+                <h3 id="userName">Guest User</h3>
+                <p>Free Plan</p>
+                <div class="premium-badge" id="premiumBadge" style="display: none;">
+                    <i class="fas fa-crown"></i> PREMIUM
+                </div>
+            </div>
+        </div>
+        
+        <div class="nav-menu">
+            <div class="nav-item active" data-page="home">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </div>
+            <div class="nav-item" data-page="browse">
+                <i class="fas fa-compass"></i>
+                <span>Browse</span>
+            </div>
+            <div class="nav-item" data-page="radio">
+                <i class="fas fa-broadcast-tower"></i>
+                <span>Radio</span>
+            </div>
+            <div class="nav-item" data-page="library">
+                <i class="fas fa-heart"></i>
+                <span>Liked Songs</span>
+            </div>
+            <div class="nav-item" data-page="playlists">
+                <i class="fas fa-list-music"></i>
+                <span>Your Playlists</span>
+            </div>
+            <div class="nav-item" data-page="podcasts">
+                <i class="fas fa-podcast"></i>
+                <span>Podcasts</span>
+            </div>
+        </div>
+        
+        <div class="playlists">
+            <h3>Your Playlists</h3>
+            <div class="playlist-item" data-playlist="favorites">
+                <div>
+                    <i class="fas fa-heart"></i> Favorites
+                </div>
+                <span class="playlist-count">12</span>
+            </div>
+            <div class="playlist-item" data-playlist="workout">
+                <div>
+                    <i class="fas fa-dumbbell"></i> Workout Mix
+                </div>
+                <span class="playlist-count">8</span>
+            </div>
+            <div class="playlist-item" data-playlist="chill">
+                <div>
+                    <i class="fas fa-wind"></i> Chill Vibes
+                </div>
+                <span class="playlist-count">15</span>
+            </div>
+            <div class="playlist-item" data-playlist="party">
+                <div>
+                    <i class="fas fa-glass-cheers"></i> Party Hits
+                </div>
+                <span class="playlist-count">20</span>
+            </div>
+            
+            <div class="create-playlist-btn" id="createPlaylistBtn">
+                <i class="fas fa-plus"></i> Create Playlist
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+        <div class="header">
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search songs, artists, albums..." id="searchInput">
+            </div>
+            
+            <div class="header-actions">
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="language-toggle" id="languageToggle">
+                    <i class="fas fa-language"></i>
+                </button>
+                <div class="user-profile" id="userProfileBtn">
+                    <div class="user-avatar">
+                        G
+                    </div>
+                    <div>
+                        <h3 id="userNameHeader">Guest</h3>
+                        <p>Free Plan</p>
+                    </div>
+                    <i class="fas fa-chevron-down" style="margin-left: 10px;"></i>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Hero Section -->
+        <div class="hero">
+            <div class="hero-content">
+                <h2 id="heroTitle">తెలుగు సినిమా బీట్స్</h2>
+                <p id="heroDescription">Latest hits from RRR, Pushpa, Salaar & more. Updated daily.</p>
+                <button class="play-btn" id="heroPlayBtn">
+                    <i class="fas fa-play"></i> Play Now
+                </button>
+            </div>
+            <div class="hero-image">
+                <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Telugu Music">
+            </div>
+        </div>
+        
+        <!-- Now Playing Sections -->
+        <div class="section-title">
+            <h2>Now Playing Everywhere</h2>
+            <span class="see-all">See All</span>
+        </div>
+        <div class="cards-container" id="trendingSongs">
+            <!-- Trending songs will be loaded here -->
+        </div>
+        
+        <div class="section-title">
+            <h2>Telugu Movie Albums</h2>
+            <span class="see-all">See All</span>
+        </div>
+        <div class="cards-container" id="movieAlbums">
+            <!-- Movie albums will be loaded here -->
+        </div>
+        
+        <div class="section-title">
+            <h2>Telugu Playlists</h2>
+            <span class="see-all">See All</span>
+        </div>
+        <div class="cards-container" id="teluguPlaylists">
+            <!-- Playlists will be loaded here -->
+        </div>
+        
+        <div class="section-title">
+            <h2>Top Artists</h2>
+            <span class="see-all">See All</span>
+        </div>
+        <div class="cards-container" id="topArtists">
+            <!-- Artists will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Music Player -->
+    <div class="music-player" id="musicPlayer">
+        <div class="player-album">
+            <div class="player-album-img">
+                <img id="playerAlbumArt" src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" alt="Album Art">
+            </div>
+            <div class="player-song-info">
+                <h4 id="playerSongTitle">Naatu Naatu</h4>
+                <p id="playerSongArtist">Rahul Sipligunj, Kaala Bhairava</p>
+            </div>
+        </div>
+        
+        <div class="player-controls">
+            <div class="player-buttons">
+                <button class="player-btn" id="shuffleBtn" title="Shuffle">
+                    <i class="fas fa-random"></i>
+                </button>
+                <button class="player-btn" id="prevBtn" title="Previous">
+                    <i class="fas fa-step-backward"></i>
+                </button>
+                <button class="player-btn play-pause-btn" id="playPauseBtn" title="Play/Pause">
+                    <i class="fas fa-play"></i>
+                </button>
+                <button class="player-btn" id="nextBtn" title="Next">
+                    <i class="fas fa-step-forward"></i>
+                </button>
+                <button class="player-btn" id="repeatBtn" title="Repeat">
+                    <i class="fas fa-redo"></i>
+                </button>
+            </div>
+            
+            <div class="player-progress">
+                <span class="progress-time" id="currentTime">0:00</span>
+                <div class="progress-bar" id="progressBar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <span class="progress-time" id="totalTime">3:45</span>
+            </div>
+        </div>
+        
+        <div class="player-extra">
+            <button class="player-btn" id="lyricsBtn" title="Lyrics">
+                <i class="fas fa-microphone"></i>
+            </button>
+            <button class="player-btn" id="queueBtn" title="Queue">
+                <i class="fas fa-list-ol"></i>
+            </button>
+            <button class="player-btn" id="likeBtn" title="Like">
+                <i class="far fa-heart"></i>
+            </button>
+            
+            <div class="volume-control">
+                <button class="player-btn" id="volumeBtn" title="Mute">
+                    <i class="fas fa-volume-up"></i>
+                </button>
+                <div class="volume-bar" id="volumeBar">
+                    <div class="volume-fill" id="volumeFill"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Now Playing Modal -->
+    <div class="now-playing-modal" id="nowPlayingModal">
+        <button class="close-now-playing" id="closeNowPlaying">
+            <i class="fas fa-times"></i>
+        </button>
+        <div class="now-playing-content">
+            <div class="now-playing-album">
+                <img id="nowPlayingAlbumArt" src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Album Art">
+            </div>
+            <div class="now-playing-info">
+                <h1 id="nowPlayingTitle">Naatu Naatu</h1>
+                <h2 id="nowPlayingArtist">Rahul Sipligunj, Kaala Bhairava • RRR</h2>
+                
+                <div class="player-buttons" style="margin-top: 30px; justify-content: flex-start;">
+                    <button class="player-btn" id="npShuffleBtn">
+                        <i class="fas fa-random"></i>
+                    </button>
+                    <button class="player-btn" id="npPrevBtn">
+                        <i class="fas fa-step-backward"></i>
+                    </button>
+                    <button class="player-btn play-pause-btn" id="npPlayPauseBtn">
+                        <i class="fas fa-play"></i>
+                    </button>
+                    <button class="player-btn" id="npNextBtn">
+                        <i class="fas fa-step-forward"></i>
+                    </button>
+                    <button class="player-btn" id="npRepeatBtn">
+                        <i class="fas fa-redo"></i>
+                    </button>
+                    <button class="player-btn" id="npLikeBtn">
+                        <i class="far fa-heart"></i>
+                    </button>
+                </div>
+                
+                <div class="now-playing-lyrics" id="nowPlayingLyrics">
+                    <!-- Lyrics will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Queue Panel -->
+    <div class="queue-panel" id="queuePanel">
+        <div class="queue-header">
+            <h3>Queue</h3>
+            <button class="queue-close" id="queueClose">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="queue-list" id="queueList">
+            <!-- Queue items will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        Song added to favorites!
+    </div>
+
+    <script>
+        // ========== GLOBAL VARIABLES ==========
+        let currentUser = {
+            name: "Guest User",
+            isPremium: false,
+            isLoggedIn: false
+        };
+        
+        let currentSongIndex = 0;
+        let isPlaying = false;
+        let isShuffled = false;
+        let repeatMode = 0; // 0: off, 1: one, 2: all
+        let isMuted = false;
+        let volume = 0.7;
+        let currentTime = 0;
+        let totalTime = 225; // 3:45 in seconds
+        
+        // ========== AUDIO PLAYER ==========
+        let audio = new Audio();
+        let isAudioPlaying = false;
+
+        function playAudio(url) {
+            audio.src = url;
+            audio.volume = isMuted ? 0 : volume;
+            audio.play()
+                .then(() => {
+                    isAudioPlaying = true;
+                    musicPlayer.classList.add('playing');
+                })
+                .catch(error => {
+                    console.log("Audio play failed:", error);
+                    showToast("Audio loading...");
+                });
+        }
+
+        function pauseAudio() {
+            audio.pause();
+            isAudioPlaying = false;
+            musicPlayer.classList.remove('playing');
+        }
+
+        function stopAudio() {
+            audio.pause();
+            audio.currentTime = 0;
+            isAudioPlaying = false;
+        }
+        
+        // Telugu Music Database
+        const teluguSongs = [
+            {
+                id: 1,
+                title: "Naatu Naatu",
+                artist: "Rahul Sipligunj, Kaala Bhairava",
+                movie: "RRR",
+                duration: "3:34",
+                albumArt: "rrr.jpeg",
+                audioUrl: "Nattu Nattu.mp3",
+                isLiked: true,
+                lyrics: [
+                    "Naatu Naatu Naatu Naatu",
+                    "Dum dum diga diga dum dum",
+                    "Naatu Naatu Naatu Naatu",
+                    "Dum dum diga diga dum dum",
+                    "Ramaraju neeku ra...",
+                    "Ramaraju neeku ra...",
+                    "Naatu Naatu Naatu Naatu..."
+                ]
+            },
+            {
+                id: 2,
+                title: "Ni chitram choosi..",
+                artist: "Sid Sriram",
+                movie: "Love Story",
+                duration: "4:12",
+                albumArt: "ls.jpeg",
+                audioUrl: "Nee Chitram Choosi - SenSongsM3.Com.mp3",
+                isLiked: false,
+                lyrics: [
+                    "Sriviladi Priyathama",
+                    "Nee prema neeke telusa",
+                    "Ee jeevitham neeke thodu",
+                    "Naa hrudayam nee veedu"
+                ]
+            },
+            {
+                id: 3,
+                title: "Oo Antava",
+                artist: "Indravathi Chauhan",
+                movie: "Pushpa",
+                duration: "3:43",
+                albumArt: "oo.jpeg",
+                audioUrl: "Oo Antava Oo Oo Antava.mp3",
+                isLiked: true,
+                lyrics: [
+                    "Oo Antava Oo Oo Antava",
+                    "Naa Antava Naa Naa Antava",
+                    "Em cheyyalem devuda",
+                    "Ee roopame devuda"
+                ]
+            },
+            {
+                id: 4,
+                title: "Butta Bomma",
+                artist: "Armaan Malik",
+                movie: "Ala Vaikunthapurramuloo",
+                duration: "3:18",
+                albumArt: "bb.jpeg",
+                audioUrl: "ButtaBomma - SenSongsMp3.Co.mp3",
+                isLiked: false,
+                lyrics: [
+                    "Butta Bomma Butta Bomma",
+                    "Adigo chusa nee peru bomma",
+                    "Kalalo unna choopu thoomma",
+                    "Naa hrudayam aipo thoomma"
+                ]
+            },
+            {
+                id: 5,
+                title: "Saami Saami",
+                artist: "Mounika Yadav",
+                movie: "Pushpa",
+                duration: "3:44",
+                albumArt: "saami.jpeg",
+                audioUrl: "Saami Saami.mp3",
+                isLiked: true,
+                lyrics: [
+                    "Saami Saami Saami Saami",
+                    "Nee peru thone saagara neeru",
+                    "Naa manasu thone daari chupisthundi"
+                ]
+            },
+            {
+                id: 6,
+                title: "Ramuloo Ramulaa",
+                artist: "Anurag Kulkarni",
+                movie: "Ala Vaikunthapurramuloo",
+                duration: "4:05",
+                albumArt: "av.jpeg",
+                audioUrl: "Ramuloo Ramula - SenSongsMp3.Co.mp3",
+                isLiked: false,
+                lyrics: [
+                    "Ramuloo Ramulaa Ramulaa Ramulaa",
+                    "Haayi haayi haayi haayi",
+                    "Nuvvele nee prema kanulaa"
+                ]
+            },
+            {
+                id: 7,
+                title: "Dhivo Dhivo",
+                artist: "Anirudh Ravichander",
+                movie: "Kantara",
+                duration: "4:22",
+                albumArt: "kantara.jpeg",
+                audioUrl: "kantara.mp3",
+                isLiked: true,
+                lyrics: [
+                    "Dhivo Dhivo Dhivo Dhivo",
+                    "Bhoomi thaake dhivo",
+                    "Naa manasu thaake dhivo"
+                ]
+            },
+            {
+                id: 8,
+                title: "Kalaavathi",
+                artist: "Sid Sriram",
+                movie: "Sarkaru Vaari Paata",
+                duration: "4:02",
+                albumArt: "srk.jpeg",
+                audioUrl: "Kalaavathi.mp3",
+                isLiked: false,
+                lyrics: [
+                    "Kalaavathi Kalaavathi",
+                    "Neeve naa jeevitha geethi",
+                    "Naa hrudayam neeke maathi"
+                ]
+            }
+        ];
+        
+        const playlists = [
+            { id: 1, name: "Telugu Party Hits", count: 25, image: "p.jpeg" },
+            { id: 2, name: "Romantic Telugu", count: 18, image: "dc.jpeg" },
+            { id: 3, name: "90s Telugu Classics", count: 30, image: "90.jpeg" },
+            { id: 4, name: "Telugu Devotional", count: 15, image: "dev.jpeg" },
+            { id: 5, name: "Telugu Folk Mix", count: 12, image: "folk.jpeg" },
+            { id: 6, name: "Latest Telugu 2025", count: 20, image: "l.jpeg" }
+        ];
+        
+        const movieAlbums = [
+            { id: 1, name: "RRR", year: "2022", songs: 6, image: "rrr.jpeg" },
+            { id: 2, name: "Pushpa", year: "2021", songs: 5, image: "p.jpeg" },
+            { id: 3, name: "Ala Vaikunthapurramuloo", year: "2020", songs: 5, image: "av.jpeg" },
+            { id: 4, name: "Kantara", year: "2022", songs: 4, image: "kantara.jpeg" },
+            { id: 5, name: "Love Story", year: "2021", songs: 4, image: "ls.jpeg" },
+            { id: 6, name: "Sarkaru Vaari Paata", year: "2022", songs: 5, image: "srk.jpeg" }
+        ];
+        
+        const artists = [
+            { id: 1, name: "Sid Sriram", songs: 45, image: "ss.jpeg" },
+            { id: 2, name: "SP Balasubrahmanyam", songs: 1000, image: "spb.jpeg" },
+            { id: 3, name: "Chitra", songs: 850, image: "c.jpeg" },
+            { id: 4, name: "Anirudh Ravichander", songs: 120, image: "ar.jpeg" },
+            { id: 5, name: "Devi Sri Prasad", songs: 300, image: "dsp.jpeg" },
+            { id: 6, name: "Thaman S", songs: 250, image: "t.jpeg" }
+        ];
+        
+        let queue = [...teluguSongs];
+        let filteredSongs = [...teluguSongs];
+        
+        // ========== DOM ELEMENTS ==========
+        const loginModal = document.getElementById('loginModal');
+        const guestLoginBtn = document.getElementById('guestLogin');
+        const premiumLoginBtn = document.getElementById('premiumLogin');
+        const googleLoginBtn = document.getElementById('googleLogin');
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const sidebar = document.getElementById('sidebar');
+        const userAvatar = document.getElementById('userAvatar');
+        const userName = document.getElementById('userName');
+        const userNameHeader = document.getElementById('userNameHeader');
+        const premiumBadge = document.getElementById('premiumBadge');
+        const userProfileBtn = document.getElementById('userProfileBtn');
+        const themeToggle = document.getElementById('themeToggle');
+        const languageToggle = document.getElementById('languageToggle');
+        const createPlaylistBtn = document.getElementById('createPlaylistBtn');
+        const heroPlayBtn = document.getElementById('heroPlayBtn');
+        const heroTitle = document.getElementById('heroTitle');
+        const heroDescription = document.getElementById('heroDescription');
+        const searchInput = document.getElementById('searchInput');
+        
+        // Player elements
+        const musicPlayer = document.getElementById('musicPlayer');
+        const playerAlbumArt = document.getElementById('playerAlbumArt');
+        const playerSongTitle = document.getElementById('playerSongTitle');
+        const playerSongArtist = document.getElementById('playerSongArtist');
+        const playPauseBtn = document.getElementById('playPauseBtn');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const shuffleBtn = document.getElementById('shuffleBtn');
+        const repeatBtn = document.getElementById('repeatBtn');
+        const lyricsBtn = document.getElementById('lyricsBtn');
+        const queueBtn = document.getElementById('queueBtn');
+        const likeBtn = document.getElementById('likeBtn');
+        const volumeBtn = document.getElementById('volumeBtn');
+        const currentTimeEl = document.getElementById('currentTime');
+        const totalTimeEl = document.getElementById('totalTime');
+        const progressBar = document.getElementById('progressBar');
+        const progressFill = document.getElementById('progressFill');
+        const volumeBar = document.getElementById('volumeBar');
+        const volumeFill = document.getElementById('volumeFill');
+        
+        // Now playing modal
+        const nowPlayingModal = document.getElementById('nowPlayingModal');
+        const closeNowPlaying = document.getElementById('closeNowPlaying');
+        const nowPlayingAlbumArt = document.getElementById('nowPlayingAlbumArt');
+        const nowPlayingTitle = document.getElementById('nowPlayingTitle');
+        const nowPlayingArtist = document.getElementById('nowPlayingArtist');
+        const nowPlayingLyrics = document.getElementById('nowPlayingLyrics');
+        const npPlayPauseBtn = document.getElementById('npPlayPauseBtn');
+        const npPrevBtn = document.getElementById('npPrevBtn');
+        const npNextBtn = document.getElementById('npNextBtn');
+        const npShuffleBtn = document.getElementById('npShuffleBtn');
+        const npRepeatBtn = document.getElementById('npRepeatBtn');
+        const npLikeBtn = document.getElementById('npLikeBtn');
+        
+        // Queue panel
+        const queuePanel = document.getElementById('queuePanel');
+        const queueClose = document.getElementById('queueClose');
+        const queueList = document.getElementById('queueList');
+        
+        // Toast
+        const toast = document.getElementById('toast');
+        
+        // Content containers
+        const trendingSongsContainer = document.getElementById('trendingSongs');
+        const movieAlbumsContainer = document.getElementById('movieAlbums');
+        const teluguPlaylistsContainer = document.getElementById('teluguPlaylists');
+        const topArtistsContainer = document.getElementById('topArtists');
+        
+        // ========== INITIALIZATION ==========
+        document.addEventListener('DOMContentLoaded', () => {
+            // Load saved user data
+            loadUserData();
+            
+            // Render content
+            renderTrendingSongs();
+            renderMovieAlbums();
+            renderPlaylists();
+            renderArtists();
+            
+            // Initialize player with first song
+            loadSong(currentSongIndex);
+            
+            // Set up event listeners
+            setupEventListeners();
+            
+            // Hide login modal after 1.5 seconds
+            setTimeout(() => {
+                loginModal.classList.add('hidden');
+            }, 1500);
+        });
+        
+        // ========== USER FUNCTIONS ==========
+        function loadUserData() {
+            const savedUser = localStorage.getItem('teluguMelodyUser');
+            if (savedUser) {
+                currentUser = JSON.parse(savedUser);
+                updateUserUI();
+            }
+        }
+        
+        function saveUserData() {
+            localStorage.setItem('teluguMelodyUser', JSON.stringify(currentUser));
+        }
+        
+        function updateUserUI() {
+            // Update user name
+            userName.textContent = currentUser.name;
+            userNameHeader.textContent = currentUser.name.split(' ')[0];
+            
+            // Update avatar
+            userAvatar.textContent = currentUser.name.charAt(0);
+            
+            // Update premium badge
+            if (currentUser.isPremium) {
+                premiumBadge.style.display = 'inline-block';
+                document.querySelector('.logo span').textContent = '| Premium';
+            } else {
+                premiumBadge.style.display = 'none';
+                document.querySelector('.logo span').textContent = '| Free';
+            }
+        }
+        
+        // ========== CONTENT RENDERING ==========
+        function renderTrendingSongs() {
+            trendingSongsContainer.innerHTML = '';
+            teluguSongs.slice(0, 6).forEach((song, index) => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.dataset.id = song.id;
+                card.innerHTML = `
+                    <div class="card-img">
+                        <img src="${song.albumArt}" alt="${song.title}">
+                        <div class="play-overlay">
+                            <i class="fas fa-play"></i>
+                        </div>
+                        <button class="card-like-btn ${song.isLiked ? 'liked' : ''}" data-id="${song.id}">
+                            <i class="${song.isLiked ? 'fas' : 'far'} fa-heart"></i>
+                        </button>
+                    </div>
+                    <div class="card-title">${song.title}</div>
+                    <div class="card-subtitle">${song.artist} • ${song.movie}</div>
+                `;
+                card.addEventListener('click', (e) => {
+                    // Don't play song if clicking like button
+                    if (!e.target.closest('.card-like-btn')) {
+                        playSong(index);
+                    }
+                });
+                trendingSongsContainer.appendChild(card);
+            });
+        }
+        
+        function renderMovieAlbums() {
+            movieAlbumsContainer.innerHTML = '';
+            movieAlbums.forEach(album => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `
+                    <div class="card-img">
+                        <img src="${album.image}" alt="${album.name}">
+                        <div class="play-overlay">
+                            <i class="fas fa-play"></i>
+                        </div>
+                    </div>
+                    <div class="card-title">${album.name}</div>
+                    <div class="card-subtitle">${album.year} • ${album.songs} songs</div>
+                `;
+                card.addEventListener('click', () => {
+                    showToast(`Playing ${album.name} album`);
+                });
+                movieAlbumsContainer.appendChild(card);
+            });
+        }
+        
+        function renderPlaylists() {
+            teluguPlaylistsContainer.innerHTML = '';
+            playlists.forEach(playlist => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `
+                    <div class="card-img">
+                        <img src="${playlist.image}" alt="${playlist.name}">
+                        <div class="play-overlay">
+                            <i class="fas fa-play"></i>
+                        </div>
+                    </div>
+                    <div class="card-title">${playlist.name}</div>
+                    <div class="card-subtitle">${playlist.count} songs</div>
+                `;
+                card.addEventListener('click', () => {
+                    showToast(`Playing ${playlist.name}`);
+                });
+                teluguPlaylistsContainer.appendChild(card);
+            });
+        }
+        
+        function renderArtists() {
+            topArtistsContainer.innerHTML = '';
+            artists.forEach(artist => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `
+                    <div class="card-img">
+                        <img src="${artist.image}" alt="${artist.name}">
+                        <div class="play-overlay">
+                            <i class="fas fa-play"></i>
+                        </div>
+                    </div>
+                    <div class="card-title">${artist.name}</div>
+                    <div class="card-subtitle">${artist.songs} songs</div>
+                `;
+                card.addEventListener('click', () => {
+                    showToast(`Playing ${artist.name} top songs`);
+                });
+                topArtistsContainer.appendChild(card);
+            });
+        }
+        
+        function renderQueue() {
+            queueList.innerHTML = '';
+            queue.forEach((song, index) => {
+                const item = document.createElement('div');
+                item.className = `queue-item ${index === currentSongIndex ? 'active' : ''}`;
+                item.innerHTML = `
+                    <div class="queue-item-img">
+                        <img src="${song.albumArt}" alt="${song.title}">
+                    </div>
+                    <div class="queue-item-info">
+                        <h4>${song.title}</h4>
+                        <p>${song.artist}</p>
+                    </div>
+                    <div class="queue-item-duration">${song.duration}</div>
+                `;
+                item.addEventListener('click', () => playSong(index));
+                queueList.appendChild(item);
+            });
+        }
+        
+        // ========== LIKED SONGS FUNCTIONALITY ==========
+        function addToLikedSongs(songId) {
+            const songIndex = teluguSongs.findIndex(s => s.id === songId);
+            if (songIndex !== -1) {
+                teluguSongs[songIndex].isLiked = true;
+                
+                // Update current song if it's the same
+                const queueIndex = queue.findIndex(s => s.id === songId);
+                if (queueIndex !== -1) {
+                    queue[queueIndex].isLiked = true;
+                    if (queueIndex === currentSongIndex) {
+                        updateLikeButton();
+                    }
+                }
+                
+                showToast('Added to Liked Songs');
+                
+                // Update favorites playlist count
+                updatePlaylistCounts();
+            }
+        }
+        
+        function updatePlaylistCounts() {
+            const likedCount = teluguSongs.filter(song => song.isLiked).length;
+            const favoritesCount = document.querySelector('.playlist-item[data-playlist="favorites"] .playlist-count');
+            if (favoritesCount) {
+                favoritesCount.textContent = likedCount;
+            }
+        }
+        
+        function renderLikedSongs() {
+            trendingSongsContainer.innerHTML = '';
+            const likedSongs = teluguSongs.filter(song => song.isLiked);
+            
+            if (likedSongs.length === 0) {
+                trendingSongsContainer.innerHTML = `
+                    <div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--text-secondary);">
+                        <i class="fas fa-heart" style="font-size: 48px; margin-bottom: 20px; opacity: 0.5;"></i>
+                        <h3>No liked songs yet</h3>
+                        <p>Like some songs to see them here</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            likedSongs.forEach((song, index) => {
+                const originalIndex = teluguSongs.findIndex(s => s.id === song.id);
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.dataset.id = song.id;
+                card.innerHTML = `
+                    <div class="card-img">
+                        <img src="${song.albumArt}" alt="${song.title}">
+                        <div class="play-overlay">
+                            <i class="fas fa-play"></i>
+                        </div>
+                        <button class="card-like-btn liked" data-id="${song.id}">
+                            <i class="fas fa-heart"></i>
+                        </button>
+                    </div>
+                    <div class="card-title">${song.title} <i class="fas fa-heart" style="color: var(--primary); margin-left: 5px;"></i></div>
+                    <div class="card-subtitle">${song.artist} • ${song.movie}</div>
+                `;
+                card.addEventListener('click', (e) => {
+                    if (!e.target.closest('.card-like-btn')) {
+                        playSong(originalIndex);
+                    }
+                });
+                trendingSongsContainer.appendChild(card);
+            });
+        }
+        
+        // ========== PAGE NAVIGATION ==========
+        function loadPage(page) {
+            // Update active nav
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            document.querySelector(`.nav-item[data-page="${page}"]`).classList.add('active');
+            
+            // Update hero section based on page
+            switch(page) {
+                case 'home':
+                    heroTitle.textContent = "తెలుగు సినిమా బీట్స్";
+                    heroDescription.textContent = "Latest hits from RRR, Pushpa, Salaar & more. Updated daily.";
+                    renderTrendingSongs();
+                    showToast("Home - Telugu Cinema Beats");
+                    break;
+                case 'browse':
+                    heroTitle.textContent = "Browse Telugu Music";
+                    heroDescription.textContent = "Discover new Telugu songs, albums and artists";
+                    renderTrendingSongs();
+                    showToast("Browse - Discover Music");
+                    break;
+                case 'radio':
+                    heroTitle.textContent = "Telugu Radio Stations";
+                    heroDescription.textContent = "Listen to curated Telugu music radio stations";
+                    renderPlaylists();
+                    showToast("Radio - Telugu Stations");
+                    break;
+                case 'library':
+                    heroTitle.textContent = "Liked Songs";
+                    heroDescription.textContent = "Your collection of favorite Telugu songs";
+                    renderLikedSongs();
+                    showToast("Library - Your Liked Songs");
+                    break;
+                case 'playlists':
+                    heroTitle.textContent = "Your Playlists";
+                    heroDescription.textContent = "Create and manage your Telugu music playlists";
+                    renderPlaylists();
+                    showToast("Playlists - Your Collections");
+                    break;
+                case 'podcasts':
+                    heroTitle.textContent = "Telugu Podcasts";
+                    heroDescription.textContent = "Listen to popular Telugu podcasts and shows";
+                    renderPlaylists();
+                    showToast("Podcasts - Telugu Shows");
+                    break;
+            }
+        }
+        
+        // ========== PLAYER FUNCTIONS ==========
+        function loadSong(index) {
+            if (index < 0 || index >= queue.length) return;
+            
+            currentSongIndex = index;
+            const song = queue[currentSongIndex];
+            
+            // Update player UI
+            playerAlbumArt.src = song.albumArt;
+            playerSongTitle.textContent = song.title;
+            playerSongArtist.textContent = `${song.artist} • ${song.movie}`;
+            
+            // Update now playing modal
+            nowPlayingAlbumArt.src = song.albumArt;
+            nowPlayingTitle.textContent = song.title;
+            nowPlayingArtist.textContent = `${song.artist} • ${song.movie}`;
+            
+            // Update like button
+            updateLikeButton();
+            
+            // Update time
+            totalTime = parseTimeString(song.duration);
+            totalTimeEl.textContent = song.duration;
+            
+            // Render lyrics
+            renderLyrics();
+            
+            // Render queue
+            renderQueue();
+            
+            // Auto-play if already playing
+            if (isPlaying) {
+                musicPlayer.classList.add('playing');
+            } else {
+                musicPlayer.classList.remove('playing');
+            }
+        }
+        
+        function playSong(index) {
+            loadSong(index);
+            playMusic();
+        }
+        
+        function playMusic() {
+            isPlaying = true;
+            playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+            npPlayPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+            
+            const song = queue[currentSongIndex];
+            
+            // Play real audio if available
+            if (song.audioUrl) {
+                playAudio(song.audioUrl);
+            } else {
+                musicPlayer.classList.add('playing');
+            }
+            
+            // Start progress simulation
+            startProgressSimulation();
+            
+            showToast(`Now playing: ${song.title}`);
+        }
+        
+        function pauseMusic() {
+            isPlaying = false;
+            playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+            npPlayPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+            
+            // Stop real audio
+            if (isAudioPlaying) {
+                pauseAudio();
+            } else {
+                musicPlayer.classList.remove('playing');
+            }
+            
+            // Stop progress
+            if (window.progressInterval) {
+                clearInterval(window.progressInterval);
+            }
+        }
+        
+        function togglePlayPause() {
+            if (isPlaying) {
+                pauseMusic();
+            } else {
+                playMusic();
+            }
+        }
+        
+        function playNext() {
+            if (repeatMode === 1) {
+                // Repeat one - restart current song
+                currentTime = 0;
+                updateProgressBar();
+                return;
+            }
+            
+            if (currentSongIndex < queue.length - 1) {
+                currentSongIndex++;
+            } else {
+                if (repeatMode === 2) {
+                    // Repeat all - go to first song
+                    currentSongIndex = 0;
+                } else {
+                    // No repeat - stop at last song
+                    pauseMusic();
+                    return;
+                }
+            }
+            
+            loadSong(currentSongIndex);
+            if (isPlaying) {
+                playMusic();
+            }
+        }
+        
+        function playPrev() {
+            if (currentTime > 3) {
+                // If more than 3 seconds into song, restart it
+                currentTime = 0;
+                updateProgressBar();
+            } else {
+                // Otherwise go to previous song
+                if (currentSongIndex > 0) {
+                    currentSongIndex--;
+                } else {
+                    currentSongIndex = queue.length - 1;
+                }
+                loadSong(currentSongIndex);
+                if (isPlaying) {
+                    playMusic();
+                }
+            }
+        }
+        
+        function toggleShuffle() {
+            isShuffled = !isShuffled;
+            shuffleBtn.style.color = isShuffled ? 'var(--primary)' : 'var(--text)';
+            npShuffleBtn.style.color = isShuffled ? 'var(--primary)' : 'var(--text)';
+            
+            if (isShuffled) {
+                // Create shuffled queue
+                queue = [...teluguSongs].sort(() => Math.random() - 0.5);
+                showToast('Shuffle enabled');
+            } else {
+                // Restore original order
+                queue = [...teluguSongs];
+                showToast('Shuffle disabled');
+            }
+            
+            // Find current song in new queue
+            const currentSong = teluguSongs[currentSongIndex];
+            const newIndex = queue.findIndex(song => song.id === currentSong.id);
+            if (newIndex !== -1) {
+                currentSongIndex = newIndex;
+            }
+            
+            renderQueue();
+        }
+        
+        function toggleRepeat() {
+            repeatMode = (repeatMode + 1) % 3;
+            const repeatIcons = ['fa-redo', 'fa-redo', 'fa-infinity'];
+            const repeatTitles = ['Repeat off', 'Repeat one', 'Repeat all'];
+            
+            repeatBtn.innerHTML = `<i class="fas ${repeatIcons[repeatMode]}"></i>`;
+            npRepeatBtn.innerHTML = `<i class="fas ${repeatIcons[repeatMode]}"></i>`;
+            
+            repeatBtn.style.color = repeatMode === 0 ? 'var(--text)' : 'var(--primary)';
+            npRepeatBtn.style.color = repeatMode === 0 ? 'var(--text)' : 'var(--primary)';
+            
+            showToast(repeatTitles[repeatMode]);
+        }
+        
+        function toggleLike() {
+            const song = queue[currentSongIndex];
+            song.isLiked = !song.isLiked;
+            updateLikeButton();
+            
+            if (song.isLiked) {
+                showToast('Added to favorites');
+            } else {
+                showToast('Removed from favorites');
+            }
+            
+            // Update the main database
+            const mainSongIndex = teluguSongs.findIndex(s => s.id === song.id);
+            if (mainSongIndex !== -1) {
+                teluguSongs[mainSongIndex].isLiked = song.isLiked;
+            }
+            
+            // Update playlist counts
+            updatePlaylistCounts();
+            
+            // Update UI if on library page
+            const activeNav = document.querySelector('.nav-item.active');
+            if (activeNav && activeNav.dataset.page === 'library') {
+                renderLikedSongs();
+            }
+        }
+        
+        function updateLikeButton() {
+            const song = queue[currentSongIndex];
+            if (song.isLiked) {
+                likeBtn.innerHTML = '<i class="fas fa-heart"></i>';
+                likeBtn.style.color = 'var(--primary)';
+                npLikeBtn.innerHTML = '<i class="fas fa-heart"></i>';
+                npLikeBtn.style.color = 'var(--primary)';
+            } else {
+                likeBtn.innerHTML = '<i class="far fa-heart"></i>';
+                likeBtn.style.color = 'var(--text)';
+                npLikeBtn.innerHTML = '<i class="far fa-heart"></i>';
+                npLikeBtn.style.color = 'var(--text)';
+            }
+        }
+        
+        function toggleMute() {
+            isMuted = !isMuted;
+            volumeBtn.innerHTML = isMuted ? 
+                '<i class="fas fa-volume-mute"></i>' : 
+                '<i class="fas fa-volume-up"></i>';
+            
+            volumeFill.style.width = isMuted ? '0%' : `${volume * 100}%`;
+            
+            // Update audio volume
+            if (audio) {
+                audio.volume = isMuted ? 0 : volume;
+            }
+            
+            showToast(isMuted ? 'Muted' : 'Unmuted');
+        }
+        
+        function setVolume(e) {
+            const rect = volumeBar.getBoundingClientRect();
+            const clickX = e.clientX - rect.left;
+            const percentage = Math.max(0, Math.min(1, clickX / rect.width));
+            
+            volume = percentage;
+            volumeFill.style.width = `${percentage * 100}%`;
+            
+            if (isMuted && percentage > 0) {
+                isMuted = false;
+                volumeBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+            } else if (percentage === 0) {
+                isMuted = true;
+                volumeBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
+            }
+            
+            // Update audio volume
+            if (audio) {
+                audio.volume = isMuted ? 0 : volume;
+            }
+        }
+        
+        function setProgress(e) {
+            const rect = progressBar.getBoundingClientRect();
+            const clickX = e.clientX - rect.left;
+            const percentage = Math.max(0, Math.min(1, clickX / rect.width));
+            
+            currentTime = percentage * totalTime;
+            updateProgressBar();
+        }
+        
+        function updateProgressBar() {
+            const percentage = (currentTime / totalTime) * 100;
+            progressFill.style.width = `${percentage}%`;
+            
+            // Update time display
+            currentTimeEl.textContent = formatTime(currentTime);
+            
+            // Update lyrics highlighting
+            updateLyricsHighlight();
+        }
+        
+        function startProgressSimulation() {
+            if (window.progressInterval) {
+                clearInterval(window.progressInterval);
+            }
+            
+            window.progressInterval = setInterval(() => {
+                if (isPlaying && currentTime < totalTime) {
+                    currentTime += 0.5;
+                    updateProgressBar();
+                } else if (currentTime >= totalTime) {
+                    playNext();
+                }
+            }, 500);
+        }
+        
+        function renderLyrics() {
+            nowPlayingLyrics.innerHTML = '';
+            const song = queue[currentSongIndex];
+            
+            if (song.lyrics) {
+                song.lyrics.forEach((line, index) => {
+                    const lineEl = document.createElement('div');
+                    lineEl.className = 'lyrics-line';
+                    lineEl.textContent = line;
+                    lineEl.dataset.index = index;
+                    nowPlayingLyrics.appendChild(lineEl);
+                });
+            } else {
+                const noLyrics = document.createElement('div');
+                noLyrics.className = 'lyrics-line';
+                noLyrics.textContent = 'Lyrics not available for this song';
+                nowPlayingLyrics.appendChild(noLyrics);
+            }
+        }
+        
+        function updateLyricsHighlight() {
+            const lines = document.querySelectorAll('.lyrics-line');
+            const song = queue[currentSongIndex];
+            
+            if (!song.lyrics) return;
+            
+            // Simple simulation: highlight based on progress
+            const progress = currentTime / totalTime;
+            const lineIndex = Math.floor(progress * song.lyrics.length);
+            
+            lines.forEach((line, index) => {
+                if (index === lineIndex) {
+                    line.classList.add('active');
+                    // Scroll to active line
+                    line.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                } else {
+                    line.classList.remove('active');
+                }
+            });
+        }
+        
+        // ========== UTILITY FUNCTIONS ==========
+        function parseTimeString(timeStr) {
+            const [minutes, seconds] = timeStr.split(':').map(Number);
+            return minutes * 60 + seconds;
+        }
+        
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+        }
+        
+        function showToast(message) {
+            toast.textContent = message;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+        
+        // ========== EVENT LISTENERS ==========
+        function setupEventListeners() {
+            // Login buttons - Updated for Keerthana
+            guestLoginBtn.addEventListener('click', () => {
+                currentUser = {
+                    name: "Keerthana Vutukuri",
+                    isPremium: false,
+                    isLoggedIn: true
+                };
+                updateUserUI();
+                saveUserData();
+                loginModal.classList.add('hidden');
+                showToast('Welcome Keerthana! Enjoy Telugu music');
+            });
+            
+            premiumLoginBtn.addEventListener('click', () => {
+                currentUser = {
+                    name: "Keerthana Vutukuri",
+                    isPremium: true,
+                    isLoggedIn: true
+                };
+                updateUserUI();
+                saveUserData();
+                loginModal.classList.add('hidden');
+                showToast('Welcome Premium User! Unlimited streaming');
+            });
+            
+            googleLoginBtn.addEventListener('click', () => {
+                currentUser = {
+                    name: "Keerthana Vutukuri",
+                    isPremium: false,
+                    isLoggedIn: true
+                };
+                updateUserUI();
+                saveUserData();
+                loginModal.classList.add('hidden');
+                showToast('Signed in as Keerthana');
+            });
+            
+            // Mobile menu
+            mobileMenuBtn.addEventListener('click', () => {
+                sidebar.classList.toggle('active');
+            });
+            
+            // User profile
+            userProfileBtn.addEventListener('click', () => {
+                showToast(`${currentUser.name} • ${currentUser.isPremium ? 'Premium' : 'Free'} Plan`);
+            });
+            
+            // Theme toggle
+            themeToggle.addEventListener('click', () => {
+                const body = document.body;
+                if (body.style.backgroundColor === 'rgb(255, 255, 255)') {
+                    // Switch to dark mode
+                    body.style.backgroundColor = '';
+                    body.style.color = '';
+                    themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+                    showToast('Dark mode activated');
+                } else {
+                    // Switch to light mode
+                    body.style.backgroundColor = '#ffffff';
+                    body.style.color = '#121212';
+                    themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+                    showToast('Light mode activated');
+                }
+            });
+            
+            // Language toggle
+            languageToggle.addEventListener('click', () => {
+                showToast('Language: English / తెలుగు');
+            });
+            
+            // Create playlist
+            createPlaylistBtn.addEventListener('click', () => {
+                if (currentUser.isPremium) {
+                    showToast('Create new playlist');
+                } else {
+                    showToast('Upgrade to Premium to create playlists');
+                }
+            });
+            
+            // Hero play button
+            heroPlayBtn.addEventListener('click', () => {
+                playMusic();
+            });
+            
+            // Search
+            searchInput.addEventListener('input', (e) => {
+                const query = e.target.value.toLowerCase();
+                if (query.length > 0) {
+                    filteredSongs = teluguSongs.filter(song => 
+                        song.title.toLowerCase().includes(query) ||
+                        song.artist.toLowerCase().includes(query) ||
+                        song.movie.toLowerCase().includes(query)
+                    );
+                    // Update trending section with search results
+                    trendingSongsContainer.innerHTML = '';
+                    filteredSongs.forEach((song, index) => {
+                        const originalIndex = teluguSongs.findIndex(s => s.id === song.id);
+                        const card = document.createElement('div');
+                        card.className = 'card';
+                        card.innerHTML = `
+                            <div class="card-img">
+                                <img src="${song.albumArt}" alt="${song.title}">
+                                <div class="play-overlay">
+                                    <i class="fas fa-play"></i>
+                                </div>
+                                <button class="card-like-btn ${song.isLiked ? 'liked' : ''}" data-id="${song.id}">
+                                    <i class="${song.isLiked ? 'fas' : 'far'} fa-heart"></i>
+                                </button>
+                            </div>
+                            <div class="card-title">${song.title}</div>
+                            <div class="card-subtitle">${song.artist} • ${song.movie}</div>
+                        `;
+                        card.addEventListener('click', (e) => {
+                            if (!e.target.closest('.card-like-btn')) {
+                                playSong(originalIndex);
+                            }
+                        });
+                        trendingSongsContainer.appendChild(card);
+                    });
+                } else {
+                    renderTrendingSongs();
+                }
+            });
+            
+            // Player controls
+            playPauseBtn.addEventListener('click', togglePlayPause);
+            npPlayPauseBtn.addEventListener('click', togglePlayPause);
+            
+            prevBtn.addEventListener('click', playPrev);
+            npPrevBtn.addEventListener('click', playPrev);
+            
+            nextBtn.addEventListener('click', playNext);
+            npNextBtn.addEventListener('click', playNext);
+            
+            shuffleBtn.addEventListener('click', toggleShuffle);
+            npShuffleBtn.addEventListener('click', toggleShuffle);
+            
+            repeatBtn.addEventListener('click', toggleRepeat);
+            npRepeatBtn.addEventListener('click', toggleRepeat);
+            
+            likeBtn.addEventListener('click', toggleLike);
+            npLikeBtn.addEventListener('click', toggleLike);
+            
+            lyricsBtn.addEventListener('click', () => {
+                nowPlayingModal.classList.add('active');
+            });
+            
+            queueBtn.addEventListener('click', () => {
+                queuePanel.classList.add('active');
+            });
+            
+            volumeBtn.addEventListener('click', toggleMute);
+            
+            volumeBar.addEventListener('click', setVolume);
+            
+            progressBar.addEventListener('click', setProgress);
+            
+            // Now playing modal
+            closeNowPlaying.addEventListener('click', () => {
+                nowPlayingModal.classList.remove('active');
+            });
+            
+            // Queue panel
+            queueClose.addEventListener('click', () => {
+                queuePanel.classList.remove('active');
+            });
+            
+            // Close modals when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!queuePanel.contains(e.target) && !queueBtn.contains(e.target)) {
+                    queuePanel.classList.remove('active');
+                }
+                
+                if (nowPlayingModal.classList.contains('active') && 
+                    !nowPlayingModal.contains(e.target) && 
+                    !lyricsBtn.contains(e.target)) {
+                    nowPlayingModal.classList.remove('active');
+                }
+                
+                if (!sidebar.contains(e.target) && !mobileMenuBtn.contains(e.target) && window.innerWidth <= 1024) {
+                    sidebar.classList.remove('active');
+                }
+            });
+            
+            // Navigation items - Updated with page functionality
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    const page = item.dataset.page;
+                    loadPage(page);
+                });
+            });
+            
+            // Playlist items - Updated with real functionality
+            document.querySelectorAll('.playlist-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    const playlistId = item.dataset.playlist;
+                    let playlistSongs = [];
+                    
+                    // Create different playlists with actual songs
+                    switch(playlistId) {
+                        case 'favorites':
+                            // Favorites playlist - all liked songs
+                            playlistSongs = teluguSongs.filter(song => song.isLiked);
+                            // Update count display
+                            item.querySelector('.playlist-count').textContent = playlistSongs.length;
+                            break;
+                        case 'workout':
+                            // Workout Mix - energetic songs
+                            playlistSongs = teluguSongs.filter(song => 
+                                song.id === 1 || song.id === 3 || song.id === 7
+                            );
+                            break;
+                        case 'chill':
+                            // Chill Vibes - romantic/slow songs
+                            playlistSongs = teluguSongs.filter(song => 
+                                song.id === 2 || song.id === 4 || song.id === 6 || song.id === 8
+                            );
+                            break;
+                        case 'party':
+                            // Party Hits - all songs shuffled
+                            playlistSongs = [...teluguSongs].sort(() => Math.random() - 0.5);
+                            break;
+                        default:
+                            playlistSongs = [...teluguSongs];
+                    }
+                    
+                    if (playlistSongs.length > 0) {
+                        queue = playlistSongs;
+                        currentSongIndex = 0;
+                        loadSong(currentSongIndex);
+                        playMusic();
+                        renderQueue();
+                        
+                        showToast(`Playing ${item.textContent.trim()} - ${playlistSongs.length} songs`);
+                    } else {
+                        showToast(`No songs in ${item.textContent.trim()} playlist`);
+                    }
+                });
+            });
+            
+            // See all buttons
+            document.querySelectorAll('.see-all').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    showToast('Loading more content...');
+                });
+            });
+            
+            // Card play buttons
+            document.querySelectorAll('.play-overlay').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const card = btn.closest('.card');
+                    const index = Array.from(card.parentNode.children).indexOf(card);
+                    playSong(index);
+                });
+            });
+            
+            // Card like buttons
+            document.addEventListener('click', function(e) {
+                if (e.target.closest('.card-like-btn')) {
+                    const btn = e.target.closest('.card-like-btn');
+                    const songId = parseInt(btn.dataset.id);
+                    addToLikedSongs(songId);
+                    
+                    // Update button appearance
+                    btn.classList.add('liked');
+                    btn.innerHTML = '<i class="fas fa-heart"></i>';
+                    e.stopPropagation();
+                }
+            });
+        }
+    </script>
+</body>
+</html>
